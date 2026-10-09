@@ -1,0 +1,10 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}HealthCare Assistant{% endblock %}</title><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head><body>
+<header class="topbar"><a class="brand" href="{{ url_for('index') }}"><span class="brand-icon">✚</span><span><b>HealthCare Assistant</b><small>Your Health, Our Priority</small></span></a>
+<nav><a href="{{ url_for('doctors') }}">Find Doctor</a><a href="{{ url_for('symptom_checker') }}">Symptoms</a>
+{% if session.get('user_id') %}<a href="{{ url_for('dashboard') }}">Dashboard</a>{% if session.get('role')=='admin' %}<a href="{{ url_for('admin') }}">Admin</a>{% endif %}<a class="nav-cta" href="{{ url_for('logout') }}">Sign out</a>
+{% else %}<a href="{{ url_for('login') }}">Sign in</a><a class="nav-cta" href="{{ url_for('register') }}">Get started</a>{% endif %}</nav></header>
+<main class="container">
+{% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}<div class="flash-wrap">{% for category,message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}{% endwith %}
+{% block content %}{% endblock %}</main><footer>HealthCare Assistant · Educational demo only · Not a substitute for professional medical advice.</footer>
+<script src="{{ url_for('static', filename='app.js') }}"></script>{% block scripts %}{% endblock %}</body></html>
